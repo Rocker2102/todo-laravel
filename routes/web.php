@@ -1,7 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +17,24 @@ use App\Http\Controllers\ProductsController;
 
 Route::get('/', function() {
     return view('welcome');
+})->name('index');
+
+Route::view('/app', 'app')->name('app');
+Route::view('/login', 'login')->name('login');
+Route::view('/register', 'app')->name('register');
+
+Route::get('/get-hash/{pwd}', function($pwd) {
+    return Hash::make($pwd);
 });
 
-Route::get('/products/{id}',
-    [ProductsController::class, 'index'])
-        ->where('id', '[0-9]+')
-        ->name('products-index');
+Route::get('/user/{id}', function($id) {
+    $auth_id = Auth::id();
+    if ($auth_id === (int)$id) {
+        return view('app');
+    }
 
-Route::get('/products/view', 'App\Http\Controllers\ProductsController@showFromDb');
+    return redirect()->route('profile', $auth_id);
+})->where('id', '[0-9]+')->name('profile')->middleware('auth');
+
+Route::post('/auth',  [AuthController::class, 'authenticate'])->name('authenticate');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
