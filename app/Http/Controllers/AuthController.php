@@ -9,12 +9,20 @@ class AuthController extends Controller
 {
     public function authenticate(Request $request)
     {
+        $validated = $request->validate([
+            'email' => 'required | email',
+            'password' => 'required | min:4'
+        ]);
+
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->route('app');
+            return redirect()->route('app')->with([
+                'status' => 'success',
+                'message' => 'Logged in'
+            ]);
         }
 
         return back()->withErrors([
