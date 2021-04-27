@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'To-Do App | Home')</title>
+    <title>To-Do App | {{ Str::ucfirst($title ?? 'Home') }}</title>
 
     <link rel="icon" type="image/png" href="static/img/favicon.png" />
     <link rel="stylesheet" type="text/css" href="{{ asset('static/vendor/bootstrap-5.0-beta-3/css/bootstrap.min.css') }}" />
@@ -13,6 +13,15 @@
 
 <body>
     @include('includes.nav', ['status' => Auth::check()])
+
+    @if (session()->has('status'))
+    <div class="container">
+        <div class="alert alert-{{ session('status') }} alert-dismissible fade show m-3" role="alert">
+            {{ session('message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    @endif
 
     @yield('content')
 

@@ -2,10 +2,6 @@
 
 @section('content')
     <main class="container mt-3">
-        <div class="m-3" id="alertPanel">
-
-        </div>
-
         <form id="accessForm" class="form-floating m-3">
             @csrf
             <div class="form-floating mb-3">
@@ -21,9 +17,5 @@
                 </button>
             </div>
         </form>
-
-        <div class="m-3" id="responsePanel">
-
-        </div>
     </main>
 @endsection()

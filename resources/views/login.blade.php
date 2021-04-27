@@ -38,17 +38,6 @@
             </div>
         </form>
 
-        <div class="m-3" id="alertPanel">
-            @if($errors->any())
-            <div class="alert alert-danger" role="alert">
-                <h4 class="alert-heading">Oops! Looks like there were errors</h4>
-                <p>
-                @foreach ($errors->all() as $error)
-                    {!! $loop->iteration . '. ' . $error . ($loop->last ? '' : '<br>') !!}
-                @endforeach
-                </p>
-            </div>
-            @endif
-        </div>
+        @include('includes.err-accordian')
     </main>
 @endsection()
