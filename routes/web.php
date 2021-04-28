@@ -25,10 +25,6 @@ Route::view('/app', 'app')->name('app');
 Route::view('/login', 'login')->name('login');
 Route::view('/register', 'register')->name('register');
 
-Route::get('/get-hash/{pwd}', function($pwd) {
-    return Hash::make($pwd);
-});
-
 Route::name('user.')->prefix('user')->group(function() {
     Route::post('/add', [UserController::class, 'addUser'])->name('add');
 
