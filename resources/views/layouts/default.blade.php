@@ -27,15 +27,12 @@
 
     @yield('footer')
 
-    @once
-        @push ('scripts')
-        <script type="text/javascript" src="{{ asset('static/vendor/jquery-3.6.0.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('static/vendor/bootstrap-5.0-beta-3/js/bootstrap.bundle.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('static/js/util.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('static/js/main.js') }}"></script>
-        @endpush
-    @endonce
+    <script type="text/javascript" src="{{ asset('static/vendor/jquery-3.6.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('static/vendor/bootstrap-5.0-beta-3/js/bootstrap.bundle.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('static/js/util.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('static/js/main.js') }}"></script>
 
+    {{-- all additional scripts (if any) will be loaded after the core js files --}}
     @stack('scripts')
 </body>
 </html>
