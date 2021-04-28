@@ -1,5 +1,17 @@
 {{-- include from inside a container for proper rendering --}}
 
+@php
+    /* extends functionality to display bagged error msgs also */
+    if (isset($forms)) {
+        foreach ($forms as $key => $value) {
+            if ($errors->$value->any()) {
+                $errors = $errors->$value;
+                break;
+            }
+        }
+    }
+@endphp
+
 @if ($errors->any())
     <div class="m-3">
         <div class="accordion" id="errorsAccordian">
