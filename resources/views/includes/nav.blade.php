@@ -17,7 +17,7 @@
                 {{-- passed as auth status from parent --}}
                 @if ($status)
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::routeIs('profile') ? 'active' : '' }}" href="{{ route('user.profile') }}">
+                        <a class="nav-link {{ Request::routeIs('user.profile') ? 'active' : '' }}" href="{{ route('user.profile') }}">
                             <span class="material-icons left-align">person</span>
                             Profile
                         </a>
