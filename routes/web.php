@@ -35,9 +35,10 @@ Route::name('user.')->prefix('user')->group(function() {
     Route::middleware(['auth'])->group(function () {
         Route::get('/profile', [UserController::class, 'getUser'])->name('profile');
         Route::post('/update', [UserController::class, 'updateUser'])->name('update');
+        Route::post('/change-password', [UserController::class, 'changePassword'])->name('change_pwd');
         Route::delete('/delete', [UserController::class, 'deleteUser'])->name('delete');
     });
 });
 
-Route::post('/auth',  [AuthController::class, 'authenticate'])->name('authenticate');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/auth',  [AuthController::class, 'authenticate'])->name('authenticate');
