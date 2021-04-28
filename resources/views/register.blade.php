@@ -2,7 +2,7 @@
 
 @section('content')
     <main class="container mt-3">
-        <form id="loginForm" class="form-floating m-3" action="{{ route('user.add') }}" method="POST">
+        <form id="registerForm" class="form-floating m-3" action="{{ route('user.add') }}" method="POST">
             <h4>Fill in the below form to create a free account</h4>
             @method('POST')
             @csrf
