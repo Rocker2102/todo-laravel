@@ -40,4 +40,4 @@
 
         @include('includes.err-accordian')
     </main>
-@endsection()
+@endsection

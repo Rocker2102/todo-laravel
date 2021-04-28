@@ -12,24 +12,30 @@
 </head>
 
 <body>
-    @include('includes.nav', ['status' => Auth::check()])
+    @include('includes.nav')
 
     @if (session()->has('status'))
-    <div class="container">
-        <div class="alert alert-{{ session('status') }} alert-dismissible fade show m-3" role="alert">
-            {{ session('message') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="container">
+            <div class="alert alert-{{ session('status') }} alert-dismissible fade show m-3" role="alert">
+                {{ session('message') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         </div>
-    </div>
     @endif
 
     @yield('content')
 
     @yield('footer')
 
-    <script type="text/javascript" src="{{ asset('static/vendor/jquery-3.6.0.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('static/vendor/bootstrap-5.0-beta-3/js/bootstrap.bundle.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('static/js/util.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('static/js/main.js') }}"></script>
+    @once
+        @push ('scripts')
+        <script type="text/javascript" src="{{ asset('static/vendor/jquery-3.6.0.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('static/vendor/bootstrap-5.0-beta-3/js/bootstrap.bundle.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('static/js/util.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('static/js/main.js') }}"></script>
+        @endpush
+    @endonce
+
+    @stack('scripts')
 </body>
 </html>

@@ -14,9 +14,9 @@
                             name="name" placeholder="Your Name" value="{{ old('name') }}" required>
                         <label for="name">Your Name</label>
                         @if ($errors->has('name'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('name') }}
-                        </div>
+                            <div class="invalid-feedback">
+                                {{ $errors->first('name') }}
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -26,9 +26,9 @@
                             name="email" placeholder="Your email" value="{{ old('email') }}" required>
                         <label for="email">Email</label>
                         @if ($errors->has('email'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('email') }}
-                        </div>
+                            <div class="invalid-feedback">
+                                {{ $errors->first('email') }}
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -41,9 +41,9 @@
                             name="password" placeholder="Password" required>
                         <label for="password">Password</label>
                         @if ($errors->has('password'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('password') }}
-                        </div>
+                            <div class="invalid-feedback">
+                                {{ $errors->first('password') }}
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -69,4 +69,4 @@
 
         @include('includes.err-accordian')
     </main>
-@endsection()
+@endsection

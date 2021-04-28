@@ -14,8 +14,7 @@
                     </a>
                 </li>
 
-                {{-- passed as auth status from parent --}}
-                @if ($status)
+                @auth
                     <li class="nav-item">
                         <a class="nav-link {{ Request::routeIs('user.profile') ? 'active' : '' }}" href="{{ route('user.profile') }}">
                             <span class="material-icons left-align">person</span>
@@ -38,7 +37,7 @@
                             Register
                         </a>
                     </li>
-                @endif
+                @endauth
             </ul>
             <form id="searchForm" class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

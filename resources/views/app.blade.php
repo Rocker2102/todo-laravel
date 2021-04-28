@@ -18,4 +18,4 @@
             </div>
         </form>
     </main>
-@endsection()
+@endsection
