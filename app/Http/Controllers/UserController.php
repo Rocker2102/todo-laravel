@@ -8,11 +8,18 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    private $validate = [
+        'name' => 'required | regex:/^[a-zA-Z\s]*$/ | min:3',
+        'email' => 'required | email',
+        'pwd' => 'required | min:4',
+        'pwd_confirmed' => 'required | confirmed | min:4'
+    ];
+
     public function addUser(Request $request) {
         $validator = $request->validate([
-            'name' => 'required | regex:/^[a-zA-Z\s]*$/ | min:3',
-            'email' => 'required | email',
-            'password' => 'required | confirmed | min:4'
+            'name' => $this->validate['name'],
+            'email' => $this->validate['email'],
+            'password' => $this->validate['pwd_confirmed']
         ]);
 
         try {
@@ -42,8 +49,8 @@ class UserController extends Controller
 
     public function updateUser(Request $request) {
         $validator = $request->validateWithBag('updateAcc', [
-            'name' => 'required | regex:/^[a-zA-Z\s]*$/ | min:3',
-            'email' => 'required | email'
+            'name' => $this->validate['name'],
+            'email' => $this->validate['email']
         ]);
 
         try {
@@ -66,8 +73,8 @@ class UserController extends Controller
 
     public function changePassword(Request $request) {
         $validator = $request->validateWithBag('changePwd', [
-            'password' => 'required | min:4',
-            'new_password' => 'required | confirmed | min:4'
+            'password' => $this->validate['pwd'],
+            'new_password' => $this->validate['pwd_confirmed']
         ]);
 
         if (! \Hash::check($request->input('password'), Auth::user()->password)) {
@@ -100,7 +107,7 @@ class UserController extends Controller
 
     public function deleteUser(Request $request) {
         $validator = $request->validateWithBag('deleteAcc', [
-            'password' => 'required | min:4'
+            'password' => $this->validate['pwd']
         ]);
 
         if (! \Hash::check($request->input('password'), Auth::user()->password)) {
