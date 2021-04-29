@@ -2,7 +2,7 @@
 
 @section('content')
     <main class="container mt-3">
-        <form id="loginForm" class="form-floating m-3" action="{{ route('authenticate') }}" method="POST">
+        <form id="loginForm" class="form-floating m-3" action="{{ route('user.authenticate') }}" method="POST">
             <h4>Enter your credentials below to login</h4>
             @method('POST')
             @csrf
@@ -34,7 +34,7 @@
             </div>
 
             <div class="">
-                <p>Don't have an account? Click <a class="" href="{{ route('register') }}">here</a> to create one in no time.</p>
+                <p>Don't have an account? Click <a class="" href="{{ route('app.register') }}">here</a> to create one in no time.</p>
             </div>
         </form>
 

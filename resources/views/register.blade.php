@@ -63,7 +63,7 @@
             </div>
 
             <div class="">
-                <p>Already have an account? Click <a class="" href="{{ route('login') }}">here</a> to login.</p>
+                <p>Already have an account? Click <a class="" href="{{ route('app.login') }}">here</a> to login.</p>
             </div>
         </form>
 

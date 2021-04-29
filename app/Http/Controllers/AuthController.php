@@ -19,7 +19,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->route('app')->with([
+            return redirect()->route('app.home')->with([
                 'status' => 'success',
                 'message' => 'Logged in'
             ]);
@@ -38,6 +38,9 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('app.home')->with([
+            'status' => 'info',
+            'message' => 'Logged out!'
+        ]);;
     }
 }
