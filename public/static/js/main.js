@@ -3,7 +3,7 @@ const main = (function(window, $, util) {
 
     const constsFn = () => {
         return {
-
+            searchForm: $("#searchForm")
         };
     };
     const constants = constsFn();
@@ -19,4 +19,7 @@ const handlers = (function(window, $, util, main) {
     const constants = main.constants();
     let document = window.document;
 
+    constants.searchForm.submit(function(e) {
+        e.preventDefault();
+    });
 }(window, jQuery, util, main));
