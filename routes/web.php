@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TodoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,18 +27,27 @@ Route::get('/', function() {
     return view('welcome');
 })->name('index');
 
-/* grouped routes */
-
+/* app views */
 Route::name('app.')->prefix('app')->group(function() {
     Route::get('/profile', function() {
         return redirect()->route('user.profile');
     })->name('profile');
 
-    Route::view('/', 'app')->name('home');
     Route::view('/login', 'login')->name('login');
     Route::view('/register', 'register')->name('register');
+
+    Route::middleware(['auth'])->group(function () {
+        Route::view('/', 'app')->name('home');
+    });
+
+    Route::name('todo.')
+        ->prefix('todo')->middleware('auth')->group(function() {
+            Route::view('/', '')->name('home');
+            Route::view('/edit', '')->name('edit');
+    });
 });
 
+/* user backend */
 Route::name('user.')->prefix('user')->group(function() {
     Route::post('/add', [UserController::class, 'addUser'])->name('add');
     Route::post('/auth',  [AuthController::class, 'authenticate'])->name('authenticate');
@@ -49,4 +59,20 @@ Route::name('user.')->prefix('user')->group(function() {
         Route::post('/change-password', [UserController::class, 'changePassword'])->name('change_pwd');
         Route::delete('/delete', [UserController::class, 'deleteUser'])->name('delete');
     });
+});
+
+/* todo backend */
+Route::name('todo.')
+    ->prefix('todo')->group(function() {
+        Route::get('/get/{id}', [TodoController::class, 'get'])->name('get');
+        Route::get('/getAll/{page?}/{items?}', [TodoController::class, 'getAll'])
+            ->where([
+                'page' => '[0-9]+',
+                'items' => '[0-9]+'
+            ])->name('getAll');
+        Route::post('/add', [TodoController::class, 'add'])->name('add');
+        Route::post('/update/{id}', [TodoController::class, 'update'])
+            ->where('id', '[0-9]+')->name('update');
+        Route::delete('/delete/{id}', [TodoController::class, 'delete'])
+            ->where('id', '[0-9]+')->name('delete');
 });
