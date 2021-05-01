@@ -20,6 +20,7 @@ class CreateTodosTable extends Migration
             $table->mediumText('description');
             $table->timestamp('due_date')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('no action')->onDelete('cascade');
