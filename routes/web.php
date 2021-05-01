@@ -17,15 +17,23 @@ use App\Http\Controllers\TodoController;
 |
 */
 
+/* reroutes */
 Route::redirect('/home', '/app', 301);
 
 Route::get('/login', function() {
     return redirect()->route('app.login');
 })->name('login');
 
+Route::get('/register', function() {
+    return redirect()->route('app.register');
+})->name('register');
+
+
+/* main views */
 Route::get('/', function() {
     return view('welcome');
 })->name('index');
+
 
 /* app views */
 Route::name('app.')->prefix('app')->group(function() {
@@ -33,10 +41,12 @@ Route::name('app.')->prefix('app')->group(function() {
         return redirect()->route('user.profile');
     })->name('profile');
 
-    Route::view('/login', 'login')->name('login');
-    Route::view('/register', 'register')->name('register');
+    Route::middleware('guest')->group(function () {
+        Route::view('/login', 'login')->name('login');
+        Route::view('/register', 'register')->name('register');
+    });
 
-    Route::middleware(['auth'])->group(function () {
+    Route::middleware('auth')->group(function () {
         Route::view('/', 'app')->name('home');
     });
 
@@ -45,6 +55,7 @@ Route::name('app.')->prefix('app')->group(function() {
             Route::view('/edit', '')->name('edit');
     });
 });
+
 
 /* user backend */
 Route::name('user.')->prefix('user')->group(function() {
@@ -59,6 +70,7 @@ Route::name('user.')->prefix('user')->group(function() {
         Route::delete('/delete', [UserController::class, 'deleteUser'])->name('delete');
     });
 });
+
 
 /* todo backend */
 Route::name('todo.')->prefix('todo')
