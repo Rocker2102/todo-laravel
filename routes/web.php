@@ -40,9 +40,8 @@ Route::name('app.')->prefix('app')->group(function() {
         Route::view('/', 'app')->name('home');
     });
 
-    Route::name('todo.')
-        ->prefix('todo')->middleware('auth')->group(function() {
-            Route::view('/', '')->name('home');
+    Route::name('todo.')->prefix('todo')
+        ->middleware('auth')->group(function() {
             Route::view('/edit', '')->name('edit');
     });
 });
@@ -62,8 +61,8 @@ Route::name('user.')->prefix('user')->group(function() {
 });
 
 /* todo backend */
-Route::name('todo.')
-    ->prefix('todo')->group(function() {
+Route::name('todo.')->prefix('todo')
+    ->group(function() {
         Route::get('/get/{id}', [TodoController::class, 'get'])->name('get');
         Route::get('/getAll/{page?}/{items?}', [TodoController::class, 'getAll'])
             ->where([
