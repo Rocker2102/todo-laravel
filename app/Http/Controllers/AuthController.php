@@ -38,7 +38,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('app.home')->with([
+        return redirect()->route('app.login')->with([
             'status' => 'info',
             'message' => 'Logged out!'
         ]);;
