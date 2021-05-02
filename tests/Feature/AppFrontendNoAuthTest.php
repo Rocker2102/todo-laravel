@@ -17,22 +17,34 @@ class AppFrontendNoAuthTest extends TestCase
             ->assertRedirect('/app');
     }
 
+    public function testAppHomeRedirect() {
+        $response = $this->get(route('app.home'));
+        $response->assertStatus(302)
+            ->assertRedirect($this->loginRoute);
+    }
+
     public function testLoginRedirect() {
         $response = $this->get($this->loginRoute);
         $response->assertStatus(302)
             ->assertRedirect(route('app.login'));
     }
 
+    public function testLogoutRedirect() {
+        $response = $this->get(route('user.logout'));
+        $response->assertStatus(302)
+            ->assertRedirect($this->loginRoute);
+    }
+
+    public function testRegisterRedirect() {
+        $response = $this->get('/register');
+        $response->assertStatus(302)
+            ->assertRedirect(route('app.register'));
+    }
+
     public function testProfileRedirect() {
         $response = $this->get(route('app.profile'));
         $response->assertStatus(302)
             ->assertRedirect(route('user.profile'));
-    }
-
-    public function testAppHomeRedirect() {
-        $response = $this->get(route('app.home'));
-        $response->assertStatus(302)
-            ->assertRedirect($this->loginRoute);
     }
 
     public function testLoginView() {
