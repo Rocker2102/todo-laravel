@@ -3,8 +3,9 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+
 use App\Models\Todo;
+use Illuminate\Support\Str;
 
 class TodoFactory extends Factory
 {
