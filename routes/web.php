@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TodoController;
@@ -59,8 +60,10 @@ Route::name('app.')->prefix('app')->group(function() {
 
 /* user backend */
 Route::name('user.')->prefix('user')->group(function() {
-    Route::post('/add', [UserController::class, 'addUser'])->name('add');
-    Route::post('/auth',  [AuthController::class, 'authenticate'])->name('authenticate');
+    Route::middleware('guest')->group(function () {
+        Route::post('/add', [UserController::class, 'addUser'])->name('add');
+        Route::post('/auth',  [AuthController::class, 'authenticate'])->name('authenticate');
+    });
 
     Route::middleware(['auth'])->group(function () {
         Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -74,7 +77,7 @@ Route::name('user.')->prefix('user')->group(function() {
 
 /* todo backend */
 Route::name('todo.')->prefix('todo')
-    ->group(function() {
+    ->middleware('auth')->group(function() {
         Route::get('/get/{id}', [TodoController::class, 'get'])->name('get');
         Route::get('/getAll/{page?}/{items?}', [TodoController::class, 'getAll'])
             ->where([
