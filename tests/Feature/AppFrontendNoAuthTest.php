@@ -10,8 +10,7 @@ class AppFrontendNoAuthTest extends TestCase
 {
     private $loginRoute = '/login';
 
-    public function testHome()
-    {
+    public function testHome() {
         $response = $this->get('/home');
         $response->assertStatus(301)
             ->assertRedirect('/app');
