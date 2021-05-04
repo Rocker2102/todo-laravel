@@ -6,27 +6,41 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
+use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 class AppBackendNoAuthTest extends TestCase
 {
-    use withFaker;
+    use DatabaseTransactions, WithFaker;
 
     private $loginRoute = '/login';
-    protected static $user = null;
+    private $testPwd = '1234', $defaultPwd = 'password';
+    private $override = null;
 
-    public function setUp():void {
-        parent::setUp();
-        if (!static::$user) {
-            static::$user = [
-                'name' => $this->faker->name(),
-                'email' => $this->faker->email(),
-                'password' => '1234',
-                'password_confirmation' => '1234'
-            ];
-        }
+    function __construct() {
+        parent::__construct();
+
+        $this->override =  [
+            'name' => 'Test user',
+            'password' => $this->testPwd
+        ];
+    }
+
+    private function toArr($factoryModel) {
+        return [
+            'name' => $factoryModel->name,
+            'email' => $factoryModel->email,
+            'password' => $factoryModel->password,
+            'password_confirmation' => $factoryModel->password_confirmation
+        ];
     }
 
     public function testAddUser() {
-        $response = $this->post(route('user.add'), static::$user);
+        $user = User::factory()->make(array_merge(
+            $this->override,
+            ['password_confirmation' => $this->testPwd]
+        ));
+        $response = $this->post(route('user.add'), $this->toArr($user));
         $response->assertStatus(302);
         $response->assertRedirect(route('app.login'))
             ->assertSessionHas('status', 'success')
@@ -34,31 +48,41 @@ class AppBackendNoAuthTest extends TestCase
     }
 
     public function testAddUserDuplicateEmail() {
-        $response = $this->from(route('app.register'))->post(route('user.add'), static::$user);
+        $userInit = User::factory()->create();
+        $user = User::factory()->make(array_merge(
+            $this->override,
+            ['email' => $userInit->email, 'password_confirmation' => $this->testPwd]
+        ));
+        $response = $this->from(route('app.register'))->post(route('user.add'), $this->toArr($user));
         $response->assertStatus(302);
         $response->assertRedirect(route('app.register'));
         $response->assertSessionHasInput([
-            'name' => static::$user['name'],
-            'email' => static::$user['email']
+            'name' => $user->name,
+            'email' => $user->email
         ]);
         $response->assertSessionHasErrors([0, 1]);  /* since errors are normal arrays (not associative) containing 2 errors */
     }
 
     public function testLoginError() {
+        $user = User::factory()->make();
         $response = $this->from(route('app.login'))->post(route('user.authenticate'), [
-            'email' => static::$user['email'],
+            'email' => $user->email,
             'password' => 'some-wrong-pwd'
         ]);
         $response->assertStatus(302);
         $response->assertRedirect(route('app.login'));
         $response->assertSessionHasInput([
-            'email' => static::$user['email']
+            'email' => $user->email
         ]);
         $response->assertSessionHasErrors([0]);
     }
 
     public function testlogin() {
-        $response = $this->post(route('user.authenticate'), static::$user);
+        $user = User::factory()->create();
+        $response = $this->post(route('user.authenticate'), [
+            'email' => $user->email,
+            'password' => $this->defaultPwd  /* default password when generating model from factory */
+        ]);
         $response->assertStatus(302);
         $response->assertRedirect(route('app.home'))
             ->assertSessionHas('status', 'success')
