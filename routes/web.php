@@ -48,7 +48,7 @@ Route::name('app.')->prefix('app')->group(function() {
     });
 
     Route::middleware('auth')->group(function () {
-        Route::view('/', 'app')->name('home');
+        Route::get('/', [TodoController::class, 'todoView'])->name('home');
     });
 
     Route::name('todo.')->prefix('todo')
