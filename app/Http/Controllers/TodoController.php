@@ -3,9 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\User;
+use App\Models\Todo;
 
 class TodoController extends Controller
 {
+    public function todoView() {
+        $todos = User::find(Auth::id())->todos()->orderByDesc('created_at')->paginate(5);
+        return \view('app')->with('todos', $todos->toArray());
+    }
+
     public function get(Request $request, $id) {
         return 'get: ' . $id;
     }
