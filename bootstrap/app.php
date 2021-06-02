@@ -41,6 +41,8 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+require_once('../app/helpers.php');
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application
