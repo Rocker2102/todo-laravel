@@ -7,7 +7,7 @@
     <title>To-Do App | {{ Str::ucfirst($title ?? 'Home') }}</title>
 
     <link rel="icon" type="image/png" href="{{ asset('static/img/favicon.png') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('static/vendor/bootstrap-5.0-beta-3/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('static/vendor/bootstrap-5.0.1/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('static/css/style.css') }}" />
 </head>
 
@@ -28,7 +28,7 @@
     @yield('footer')
 
     <script type="text/javascript" src="{{ asset('static/vendor/jquery-3.6.0.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('static/vendor/bootstrap-5.0-beta-3/js/bootstrap.bundle.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('static/vendor/bootstrap-5.0.1/js/bootstrap.bundle.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('static/js/util.js') }}"></script>
     <script type="text/javascript" src="{{ asset('static/js/main.js') }}"></script>
 
