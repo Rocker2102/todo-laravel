@@ -14,7 +14,7 @@ class Todo extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'todos';
-    protected $dateFormat = 'd-m-Y H:i:s';
+    protected $dateFormat = 'd-m-Y, H:i:s';
 
     public function user() {
         return $this->belongsTo(User::class)->withDefault();
