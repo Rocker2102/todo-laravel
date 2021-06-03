@@ -27,16 +27,46 @@
                         </h2>
 
                         <div id='{{ $item_id }}' class='accordion-collapse collapse' aria-labelledby={{ $header_id }}
-                            data-bs-parent='#{{ $accord_id }}'>
+                            {{-- data-bs-parent='#{{ $accord_id }}' --}}>
                             <div class='accordion-body accordian-ctm-bg'>
-                                <span>{{ $item['description'] }}</span>
-                                <div class='mt-2'>
-                                    <div class='btn-group' role='group'>
-                                        <button type='button' class='btn btn-outline-info' data-ctm-action='connect'>
-                                            <span class='material-icons left-align'>edit</span>Edit
+                                <p>
+                                    <span class="lead">{{ $item['description'] ?? '-' }}</span><br>
+                                    <span class="">
+                                        Created at: <span class="text-primary">{{ $item['created_at'] }}</span>&nbsp;
+                                        Last updated: <span class="text-primary">{{ $item['updated_at'] }}</span>
+                                    </span>
+
+                                    @isset ($item['due_date'])
+                                        @php
+                                            $due_date_msg = 'Remaining: ';
+                                                $due_date_class = 'text-success';
+                                                $diff = time() - strtotime($item['due_date']);
+                                                if ($diff > 0) {
+                                                    $due_date_msg = 'Overdue by: ';
+                                                    $due_date_class = 'text-danger';
+                                                }
+                                                $curr = new DateTime(date('Y-m-d H:i:s'));
+                                                $due_date = new DateTime($item['due_date']);
+                                                $interval = $due_date->diff($curr, true);
+                                                $days = $interval->format('%ad %hh');
+                                                $due_date_msg .= $days;
+                                        @endphp
+
+                                        <br>
+                                        Due date:
+                                        <span class="{{ $due_date_class }}">
+                                            {{ $item['due_date'] }}
+                                            <em>({{ $due_date_msg }})</em>
+                                        </span>
+                                    @endisset
+                                </p>
+                                <div class="mt-2">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-outline-info" data-ctm-action="connect">
+                                            <span class="material-icons left-align">edit</span>Edit
                                         </button>
-                                        <button type='button' class='btn btn-outline-danger' data-ctm-action=''>
-                                            <span class='material-icons left-align'>delete</span>Delete
+                                        <button type="button" class="btn btn-outline-danger" data-ctm-action="">
+                                            <span class="material-icons left-align">delete</span>Delete
                                         </button>
                                     </div>
                                 </div>
