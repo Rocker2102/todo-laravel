@@ -17,7 +17,7 @@ class CreateTodosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('title');
-            $table->mediumText('description');
+            $table->mediumText('description')->nullable();
             $table->timestamp('due_date')->nullable();
             $table->timestamps();
             $table->softDeletes();
