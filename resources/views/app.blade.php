@@ -3,7 +3,7 @@
 @section('content')
     <main class="container mt-3">
         @php
-            $accord_id = 'accord-todo-' . get_random_str(4);
+            $accord_id = 'accord-todo-' . Helper::get_random_str(4);
         @endphp
 
         @if (count($todos['data']) == 0)
