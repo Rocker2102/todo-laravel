@@ -53,6 +53,8 @@ Route::name('app.')->prefix('app')->group(function() {
 
     Route::name('todo.')->prefix('todo')
         ->middleware('auth')->group(function() {
+            Route::view('/add', '')->name('add');
+            Route::view('/bin', '')->name('bin');
             Route::view('/edit', '')->name('edit');
     });
 });
