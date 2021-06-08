@@ -7,22 +7,31 @@
         </button>
         <div class="collapse navbar-collapse" id="mobileViewNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::routeIs('app.home') ? 'active' : '' }}" href="{{ route('app.home') }}">
-                        <span class="material-icons left-align">home</span>
-                        Home
-                    </a>
-                </li>
-
                 @auth
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::routeIs('user.profile') ? 'active' : '' }}" href="{{ route('app.profile') }}">
-                            <span class="material-icons left-align">person</span>
-                            Profile
+                        <a class="nav-link {{ Request::routeIs('app.home') ? 'active' : '' }}" href="{{ route('app.home') }}">
+                            <span class="material-icons left-align">home</span>
+                            Home
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.logout') }}"><span class="material-icons left-align">logout</span>Logout</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                            href="#" role="button" data-bs-toggle="dropdown">
+                            <img class="user-img" src="{{ asset('static/img/user.png') }}" />
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item {{ Request::routeIs('user.profile') ? 'active' : '' }}"
+                                href="{{ route('app.profile') }}">
+                                <span class="material-icons left-align">person</span>{{ Auth::user()->name }}</a></li>
+                            <li><a class="dropdown-item {{ Request::routeIs('app.todo.add') ? 'active' : '' }}"
+                                href="{{ route('app.todo.add') }}">
+                                <span class="material-icons left-align">add</span>New Todo</a></li>
+                            <li><a class="dropdown-item {{ Request::routeIs('app.todo.bin') ? 'active' : '' }}"
+                                href="{{ route('app.todo.bin') }}">
+                                <span class="material-icons left-align">delete</span>Bin</a></li>
+                            <li><a class="dropdown-item" href="{{ route('user.logout') }}">
+                                <span class="material-icons left-align">logout</span>Logout</a></li>
+                        </ul>
                     </li>
                 @else
                     <li class="nav-item">
