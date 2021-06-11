@@ -56,7 +56,7 @@
                             value="{{ Auth::user()->email_verified_at ?? '-' }}" readonly>
                         <label for="email_verified_at">Email verified at</label>
                         <div class="invalid-feedback">
-                            Verification disbabled by server
+                            Verification disabled by server
                         </div>
                         <div class="valid-feedback">
                             Email verified
