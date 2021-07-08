@@ -2,6 +2,7 @@
 
 @section('content')
     <main class="container mt-3">
+        {{-- 'forms[]' contain name of bags in backend --}}
         @include('includes.err-accordian', ['forms' => [
             'updateAcc', 'changePwd', 'deleteAcc'
         ]])
