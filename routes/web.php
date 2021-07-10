@@ -55,7 +55,8 @@ Route::name('app.')->prefix('app')->group(function() {
         ->middleware('auth')->group(function() {
             Route::view('/add', '')->name('add');
             Route::view('/bin', '')->name('bin');
-            Route::view('/edit', '')->name('edit');
+            Route::get('/edit/{id}', [TodoController::class, 'editView'])
+                ->where('id', '[0-9]+')->name('edit');
     });
 });
 
