@@ -62,10 +62,10 @@
                                 </p>
                                 <div class="mt-2">
                                     <div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-outline-info" data-ctm-action="connect">
+                                        <button type="button" class="btn btn-outline-info" onclick="location.href='{{ route('app.todo.edit', $item['id']) }}'">
                                             <span class="material-icons left-align">edit</span>Edit
                                         </button>
-                                        <button type="button" class="btn btn-outline-danger" data-ctm-action="">
+                                        <button type="button" class="btn btn-outline-danger" linkurl="{{ route('todo.delete', $item['id']) }}" confirm>
                                             <span class="material-icons left-align">delete</span>Delete
                                         </button>
                                     </div>
