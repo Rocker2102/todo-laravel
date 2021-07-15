@@ -84,7 +84,7 @@
                         </a>
                     </li>
                     <li class="page-item {{ $todos['prev_page_url'] == null ? 'disabled' : '' }}" title="Previous Page">
-                        <a class="page-link" href="{{ $todos['prev_page_url'] }}" tabindex="-1" aria-disabled="true">
+                        <a class="page-link" href="{{ $todos['prev_page_url'] }}" tabindex="-1">
                             <span class="material-icons">navigate_before</span>
                         </a>
                     </li>
