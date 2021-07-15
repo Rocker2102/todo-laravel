@@ -32,20 +32,6 @@ class TodoController extends Controller
         return \view('todo-edit')->with('todo', $todo->toArray());
     }
 
-    public function get(Request $request, $id) {
-        return 'get: ' . $id;
-    }
-
-    public function getAll(Request $request, $page = 1, $items = 5) {
-        if ($items == 0 || $items > 10) {
-            return redirect()->route('todo.getAll', [$page, 5]);
-        } else if ($page == 0) {
-            return redirect()->route('todo.getAll', [1, $items]);
-        }
-
-        return 'getAll: ' . $page . ', ' . $items;
-    }
-
     public function add() {
         return 'add';
     }
