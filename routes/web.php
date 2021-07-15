@@ -81,12 +81,6 @@ Route::name('user.')->prefix('user')->group(function() {
 /* todo backend */
 Route::name('todo.')->prefix('todo')
     ->middleware('auth')->group(function() {
-        Route::get('/get/{id}', [TodoController::class, 'get'])->name('get');
-        Route::get('/getAll/{page?}/{items?}', [TodoController::class, 'getAll'])
-            ->where([
-                'page' => '[0-9]+',
-                'items' => '[0-9]+'
-            ])->name('getAll');
         Route::post('/add', [TodoController::class, 'add'])->name('add');
         Route::post('/update/{id}', [TodoController::class, 'update'])
             ->where('id', '[0-9]+')->name('update');
